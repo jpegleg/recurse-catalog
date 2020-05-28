@@ -5,6 +5,10 @@ source1=$2
 source2=$3
 source3=$4
 
+rm -rf $recatargs || echo "Failed to remove content in $recatargs"
+
+git -C "$recataargs" clone "$source1"/"$source2" || logger "recurse-catalog error during repo clone"
+
 /usr/local/sbin/recata $recataargs
 /usr/local/sbin/source-data $source1 $source2 $source3
 
