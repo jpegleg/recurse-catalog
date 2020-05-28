@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+recataargs=$1
+source1=$2
+source2=$3
+source3=$4
+
+/usr/local/sbin/recata $recataargs
+/usr/local/sbin/source-data $source1 $source2 $source3
+
+filemod="$(ls -larth *catalog.csv | tail -n1 | rev | awk '{print $1}' | rev)"
+append="$(cat $(ls -larth *url.dat | tail -n1 | rev | awk '{print $1}' | rev))"
+:>load.csv
+cat $filemod | while read line; do
+  echo "$line,$append" >> load.csv
+done
