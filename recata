@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# recata - cercurse-catalog csv builder
+
+buildcsv () {
+  sed 's/ /,/g' "$stamp".catalog.dat | sed "s/,,/,$stamp,/g"> "$stamp".catalog.csv
+}
+
+finderproclinux () {
+  :>"$stamp".catalog.dat
+  for argus in ${target[*]}; do
+    find $argus -exec sha256sum {} \; >> "$stamp".catalog.dat 2>/dev/null || echo "$stamp run of $target recata error on find $?"
+  done
+}
+
+finderprocbsd () {
+  :>"$stamp".catalog.dat
+  find ${target[*]} -exec sha256 {} \; > "$stamp".catalog.dat 2>/dev/null || echo "$stamp run of $target recata error on find $?"
+}
+
+
+target=($@)
+which sha256 || export linuxhash=yes
+export target=($@)
+export stamp=$(date +%Y%m%d%H%M%S)
+export rando=$(openssl rand -hex 32)
+echo -e "\e[36mStarting\e[0m \e[37mrecata\e[0m on \e[31m$target\e[0m at \e[36m$stamp\e[0m with id tag of \e[35m$rando \e[0m"
+echo
+
+
+if [[ $linuxhash == yes ]]; then
+  echo "Assuming running on GNU/LINUX program sha256sum."
+  finderproclinux 2>/dev/null &&
+  buildcsv
+else
+  echo "Assuming running on BSD program sha256."
+  finderprocbsd 2>/dev/null
+  buildcsv
+fi
