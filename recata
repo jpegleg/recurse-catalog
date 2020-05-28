@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# recata - cercurse-catalog csv builder
+# recata - recurse-catalog csv builder
 
 buildcsv () {
   sed 's/ /,/g' "$stamp".catalog.dat | sed "s/,,/,$stamp,/g"> "$stamp".catalog.csv
