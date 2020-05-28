@@ -6,5 +6,5 @@ recurse-catalog: wrapper for recata and source-data
 Usage of recurse-catalog:
 
 # call program # target the local code repo # repo url # repo uri context # realm keyword
-recurse-catalog /mnt/repo/jpegleg/ https://github.com /jpegleg jpegleg-github-dev
+recurse-catalog /mnt/repo/jpegleg/ https://github.com /jpegleg/fe-html-template jpegleg-github-dev
 
