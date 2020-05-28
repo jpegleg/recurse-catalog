@@ -9,8 +9,8 @@ rm -rf $recatargs || echo "Failed to remove content in $recatargs"
 
 git -C "$recataargs" clone "$source1"/"$source2" || logger "recurse-catalog error during repo clone"
 
-/usr/local/sbin/recata $recataargs
-/usr/local/sbin/source-data $source1 $source2 $source3
+/usr/local/bin/recata $recataargs
+/usr/local/bin/source-data $source1 $source2 $source3
 
 filemod="$(ls -larth *catalog.csv | tail -n1 | rev | awk '{print $1}' | rev)"
 append="$(cat $(ls -larth *url.dat | tail -n1 | rev | awk '{print $1}' | rev))"
