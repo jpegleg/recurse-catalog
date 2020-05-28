@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# source-data - recurse-catalog source URL collection
+
+sourceurl=$1
+sourceuri=$2
+realm=$3
+stamp=$(date +%Y%m%d%H%M%s)
+which sha256 || export linuxhash=yes
+
+
+buildcsv () {
+  echo "$sourceurl,$sourceuri,$stamp,$realm,$urlhash,$urihash" > "$stamp".url.dat
+}
+
+if [[ $linuxhash == yes ]]; then
+  echo "Assuming running on GNU/LINUX program sha256sum."
+  urlhash="$(echo -n $sourceurl | sha256sum | cut -d' ' -f1)"
+  urihash="$(echo -n $sourceuri | sha256sum | cut -d' ' -f1)"
+  buildcsv
+else
+  echo "Assuming running on BSD program sha256."
+  urlhash="$(echo -n $sourceurl | sha256 | cut -d' ' -f1)"
+  urihash="$(echo -n $sourceuri | sha256 | cut -d' ' -f1)"
+  buildcsv
+fi
