@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+mkdir -p /srv/workspace/ 2>/dev/null
+cd /srv/workspace
+
 recataargs=$1
 source1=$2
 source2=$3
