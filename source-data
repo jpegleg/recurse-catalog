@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # source-data - recurse-catalog source URL collection
+mkdir -p /srv/workspace/ 2>/dev/null
+cd /srv/workspace
 
 sourceurl=$1
 sourceuri=$2
