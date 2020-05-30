@@ -2,6 +2,9 @@
 
 # recata - recurse-catalog csv builder
 
+mkdir -p /srv/workspace/ 2>/dev/null
+cd /srv/workspace
+
 buildcsv () {
   sed 's/ /,/g' "$stamp".catalog.dat | sed "s/,,/,$stamp,/g"> "$stamp".catalog.csv
 }
