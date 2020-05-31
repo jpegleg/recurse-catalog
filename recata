@@ -10,14 +10,14 @@ buildcsv () {
 }
 
 finderproclinux () {
-  :>"$stamp".catalog.dat
+  :>"$stamp".catalog.dat 2>/dev/null
   for argus in ${target[*]}; do
     find $argus -exec sha256sum {} \; >> "$stamp".catalog.dat 2>/dev/null || echo "$stamp run of $target recata error on find $?"
   done
 }
 
 finderprocbsd () {
-  :>"$stamp".catalog.dat
+  :>"$stamp".catalog.dat 2>/dev/null
   find ${target[*]} -exec sha256 {} \; > "$stamp".catalog.dat 2>/dev/null || echo "$stamp run of $target recata error on find $?"
 }
 
