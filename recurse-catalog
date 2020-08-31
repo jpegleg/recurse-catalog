@@ -16,7 +16,7 @@ git -C "$recataargs" clone "$source1"/"$source2" || logger "recurse-catalog erro
 /usr/local/bin/source-data $source1 $source2 $source3
 
 filemod="$(ls -larth *catalog.csv | tail -n1 | rev | awk '{print $1}' | rev)"
-append="$(cat $(ls -larth *url.dat | tail -n1 | rev | awk '{print $1}' | rev))"
+append="$(cat $(ls -larth *url.dat | tail -n1 | rev | awk '{print $1}' | rev | cut -d',' -f2-) | cut -d',' -f1,3-)"
 :>load.csv
 cat $filemod | while read line; do
   echo "$line,$append" >> load.csv
